@@ -12,13 +12,13 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
-public class IndexingBelts extends SubsystemBase {
+public class CascadeHook extends SubsystemBase {
   /**
-   * Creates a new IndexingBelts.
+   * Creates a new CascadeHook.
    */
-  WPI_VictorSPX indexingBeltMotor = new WPI_VictorSPX(RobotMap.indexingBeltMotor);
+  WPI_VictorSPX cascadeHookMotor = new WPI_VictorSPX(RobotMap.CascadeHookMotor);
 
-  public IndexingBelts() {
+  public CascadeHook() {
 
   }
 
@@ -27,15 +27,15 @@ public class IndexingBelts extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void Forward() {
-    indexingBeltMotor.set(1);
+  public void Up() {
+    cascadeHookMotor.set(0.8);
   }
 
-  public void Backward() {
-    indexingBeltMotor.set(-0.5);
+  public void Down() {
+    cascadeHookMotor.set(-0.8);
   }
 
-  public void Stop() {
-    indexingBeltMotor.set(0);
+  public void Stop(){
+    cascadeHookMotor.set(0);
   }
 }

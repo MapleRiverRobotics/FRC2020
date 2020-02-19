@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
+/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -8,58 +8,87 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.IndexForward;
-import frc.robot.commands.Shoot;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.IndexingBeltsForward;
+import frc.robot.commands.IntakeIn;
+//import frc.robot.commands.IntakeOut;
+import frc.robot.commands.LiftingBeltsDown;
+import frc.robot.commands.LiftingBeltsUp;
+import frc.robot.commands.ShooterForward;
+import frc.robot.commands.cascadeHookDown;
+import frc.robot.commands.cascadeHookUp;
 
 /**
- * This class is the glue that binds the controls on the physical operator
- * interface to the commands and command groups that allow control of the robot.
+ * Add your docs here.
  */
 public class OI {
-    //// CREATING BUTTONS
-    // One type of button is a joystick button which is any button on a
-    //// joystick.
-    // You create one by telling it which joystick it's on and which button
-    // number it is.
-    // Joystick stick = new Joystick(port);
-    // Button button = new JoystickButton(stick, buttonNumber);
 
-    // There are a few additional built in buttons you can use. Additionally,
-    // by subclassing Button you can create custom triggers and bind those to
-    // commands the same as any other Button.
-
-    //// TRIGGERING COMMANDS WITH BUTTONS
-    // Once you have a button, it's trivial to bind it to a button in one of
-    // three ways:
-
-    // Start the command when the button is pressed and let it run the command
-    // until it is finished as determined by it's isFinished method.
-    // button.whenPressed(new ExampleCommand());
-
-    // Run the command while the button is being held down and interrupt it once
-    // the button is released.
-    // button.whileHeld(new ExampleCommand());
-
-    // Start the command when the button is released and let it run the command
-    // until it is finished as determined by it's isFinished method.
-    // button.whenReleased(new ExampleCommand());
     public Joystick joystickDrive = new Joystick(0);
-    //public JoystickButton emergencyBreakButton;
-    
+    public JoystickButton shooterForwardButton;
+    public JoystickButton indexingBeltsForwardButton;
+    public JoystickButton liftingBeltsUpButton;
+    public JoystickButton liftingBeltsDownButton;
+    public JoystickButton cascadeHookUpButton;
+    public JoystickButton cascadeHookDownButton;
+
     public Joystick joystickOperator = new Joystick(1);
-    public JoystickButton shootButton;
-    public JoystickButton indexForwardButton;
-
-
+    public JoystickButton intakeInButton;
+    public JoystickButton intakeOutButton;
 
     public OI() {
-
         if (joystickDrive != null) {
-            shootButton = new JoystickButton(joystickDrive, 1);
-            shootButton.whileHeld(new Shoot());
-            shootButton = new JoystickButton(joystickDrive, 2);
-            shootButton.whileHeld(new IndexForward());
+            shooterForwardButton = new JoystickButton(joystickDrive, 1);
+            shooterForwardButton.whileHeld(new ShooterForward());
+            indexingBeltsForwardButton = new JoystickButton(joystickDrive, 5);
+            indexingBeltsForwardButton.whileHeld(new IndexingBeltsForward());
+            liftingBeltsUpButton = new JoystickButton(joystickDrive, 5);
+            liftingBeltsUpButton.whileHeld(new LiftingBeltsUp());
+            liftingBeltsDownButton = new JoystickButton(joystickDrive, 3);
+            liftingBeltsDownButton.whileHeld(new LiftingBeltsDown());
+            cascadeHookUpButton = new JoystickButton(joystickDrive, 6);
+            cascadeHookUpButton.whileHeld(new cascadeHookUp());
+            cascadeHookDownButton = new JoystickButton(joystickDrive, 4);
+            cascadeHookDownButton.whileHeld(new cascadeHookDown());
         }
+
+        if (joystickOperator != null) {
+            intakeInButton = new JoystickButton(joystickOperator, 4); //Y button
+            intakeInButton.whileHeld(new IntakeIn());
+            //intakeOutButton = new JoystickButton(joystickOperator, 1);//X button
+            //intakeOutButton.whileHeld(new IntakeOut());
+        }
+    }
+
+    public Joystick getJoystickDrive() {
+        return joystickDrive;
+    }
+
+    public Joystick getJoystickOperator() {
+        return joystickOperator;
+    }
+
+    public double getJoystickDriveForwardSpeed() {
+        if (joystickDrive != null) {
+            return joystickDrive.getY() * 1;
+        }
+        // if the drive joystick is not plugged in, use the operator joystick (gamepad)
+        // to drive
+        return joystickOperator.getY();
+    }
+
+    public double getJoystickDriveThrottleSpeed() {
+        if (joystickDrive != null) {
+            return (joystickDrive.getThrottle() * -1.0 + 1.0) / 2.0;
+        }
+        return .7;
+    }
+
+    public double getJoystickDriveRotation() {
+        if (joystickDrive != null) {
+            return joystickDrive.getZ() * -0.9;
+        }
+        // if the drive joystick is not plugged in, use the operator joystick (gamepad)
+        // to drive
+        return joystickOperator.getX() * .9;
     }
 }

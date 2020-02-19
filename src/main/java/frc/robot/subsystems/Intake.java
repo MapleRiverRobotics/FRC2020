@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
+/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -7,18 +7,35 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-/**
- * Add your docs here.
- */
-public class Intake extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotMap;
+
+public class Intake extends SubsystemBase {
+  /**
+   * Creates a new Intake.
+   */
+  WPI_VictorSPX intakeMotor = new WPI_VictorSPX(RobotMap.intakeMotor);
+
+  public Intake() {
+
+  }
 
   @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+  public void periodic() {
+    // This method will be called once per scheduler run
+  }
+
+  public void In() {
+    intakeMotor.set(0.8);
+  }
+
+  public void Out() {
+    intakeMotor.set(-0.8);
+  }
+
+  public void Stop() {
+    intakeMotor.set(0);
   }
 }
