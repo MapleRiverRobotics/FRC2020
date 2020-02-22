@@ -10,13 +10,13 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class LiftingBeltsDown extends CommandBase {
+public class LiftDown extends CommandBase {
   /**
-   * Creates a new LiftingBeltsDown.
+   * Creates a new LiftDown.
    */
-  public LiftingBeltsDown() {
+  public LiftDown() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.liftingBelts);
+    addRequirements(RobotContainer.lift);
   }
 
   // Called when the command is initially scheduled.
@@ -27,13 +27,16 @@ public class LiftingBeltsDown extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //RobotContainer.liftingBelts.Down();
+    if(RobotContainer.oi.getJoystickDrive().getRawButton(3)){
+      RobotContainer.lift.Down();
+    }
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.liftingBelts.Stop();
+    RobotContainer.lift.Stop();
   }
 
   // Returns true when the command should end.

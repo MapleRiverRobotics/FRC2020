@@ -29,12 +29,16 @@ public class LiftingBelts extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void Up() {
-    liftingBeltsMotor.set(-0.8);
+  public void Speed(double Speed){
+
   }
 
-  public void Down() {
-    liftingBeltsMotor.set(0.2);
+  public void Enable(double speed){
+    liftingBeltsMotor.set(speed);
+  }
+
+  public void Up() {
+    liftingBeltsMotor.set(-0.8);
   }
 
   public void Stop(){

@@ -31,6 +31,7 @@ public class RobotMap {
 
     /*---------------Intake----------------*/
     public static final int intakeMotor = 10;
+    public static final int intakeLiftMotor = 13;
     /*-------------------------------------*/
 
     /*------------LiftingBelts-------------*/
@@ -39,5 +40,9 @@ public class RobotMap {
 
     /*------------CascadeHook--------------*/
     public static final int CascadeHookMotor = 11;
+    /*-------------------------------------*/
+
+    /*----------------Lift-----------------*/
+    public static final int LiftMotor = 12;
     /*-------------------------------------*/
 }

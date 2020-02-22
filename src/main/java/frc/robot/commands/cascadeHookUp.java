@@ -27,6 +27,9 @@ public class cascadeHookUp extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if(RobotContainer.oi.getJoystickDrive().getRawButton(4)){
+      RobotContainer.cascadeHook.Stop();
+    }
     RobotContainer.cascadeHook.Up();
   }
 

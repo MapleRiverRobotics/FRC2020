@@ -27,13 +27,13 @@ public class ShooterForward extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.shooter.Forward();
+    //RobotContainer.shooter.Forward();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.shooter.Stop();
+    //RobotContainer.shooter.Stop();
   }
 
   // Returns true when the command should end.

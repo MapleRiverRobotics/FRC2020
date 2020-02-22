@@ -27,7 +27,10 @@ public class cascadeHookDown extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.cascadeHook.Down();
+    if(RobotContainer.oi.getJoystickDrive().getRawButton(4) == false){
+      RobotContainer.cascadeHook.Down();
+    }
+    //RobotContainer.cascadeHook.Stop();
   }
 
   // Called once the command ends or is interrupted.

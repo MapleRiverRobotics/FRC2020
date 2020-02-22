@@ -7,19 +7,19 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
-public class Intake extends SubsystemBase {
+public class Lift extends SubsystemBase {
   /**
-   * Creates a new Intake.
+   * Creates a new Lift.
    */
-  WPI_VictorSPX intakeMotor = new WPI_VictorSPX(RobotMap.intakeMotor);
-  WPI_VictorSPX intakeLiftMotor = new WPI_VictorSPX(RobotMap.intakeLiftMotor);
-
-  public Intake() {
+  public static CANSparkMax liftMotor = new CANSparkMax(RobotMap.LiftMotor, MotorType.kBrushless);
+  
+  public Lift() {
 
   }
 
@@ -28,19 +28,16 @@ public class Intake extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void In() {
-    intakeMotor.set(0.9);
+  public void Up(){
+    liftMotor.set(0.7);
   }
 
-  public void Out() {
-    intakeMotor.set(-0.8);
+  public void Down(){
+    liftMotor.set(-0.7);
+
   }
 
-  public void Stop() {
-    intakeMotor.set(0);
-  }
-
-  public void IntakePosition(double intakeLiftSpeed){
-    intakeLiftMotor.set(intakeLiftSpeed);
+  public void Stop(){
+    liftMotor.set(0);
   }
 }

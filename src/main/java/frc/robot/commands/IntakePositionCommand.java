@@ -10,13 +10,15 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class LiftingBeltsDown extends CommandBase {
+public class IntakePositionCommand extends CommandBase {
   /**
-   * Creates a new LiftingBeltsDown.
+   * Creates a new IntakePositionCommand.
    */
-  public LiftingBeltsDown() {
+  private double _intakeLiftSpeed = 0;
+  public IntakePositionCommand(double intakeLiftSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.liftingBelts);
+    addRequirements(RobotContainer.intake);
+    _intakeLiftSpeed = intakeLiftSpeed;
   }
 
   // Called when the command is initially scheduled.
@@ -27,13 +29,13 @@ public class LiftingBeltsDown extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //RobotContainer.liftingBelts.Down();
+    RobotContainer.intake.IntakePosition(_intakeLiftSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.liftingBelts.Stop();
+    RobotContainer.intake.IntakePosition(0);
   }
 
   // Returns true when the command should end.
