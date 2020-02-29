@@ -27,7 +27,7 @@ public class LiftDown extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(RobotContainer.oi.getJoystickDrive().getRawButton(3)){
+    if(RobotContainer.oi.getJoystickOperator().getRawButton(5)){
       RobotContainer.lift.Down();
     }
 

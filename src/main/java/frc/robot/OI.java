@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.AimAndShoot;
 import frc.robot.commands.IndexingBeltsForward;
 import frc.robot.commands.IntakeIn;
 import frc.robot.commands.IntakePositionCommand;
@@ -38,7 +39,7 @@ public class OI {
     public JoystickButton shooter90Button;
     public JoystickButton shooter85Button;
     public JoystickButton shooter80Button;
-    public JoystickButton shooter75Button;
+    public JoystickButton aimAndShootButton;
     public JoystickButton shooter70Button;
 
     public Joystick joystickOperator = new Joystick(1);
@@ -63,11 +64,11 @@ public class OI {
             shooter85Button.whileHeld(new ShooterSpeedCommand(0.85));
             shooter80Button = new JoystickButton(joystickDrive, 8);
             shooter80Button.whileHeld(new ShooterSpeedCommand(0.8));
-            shooter75Button = new JoystickButton(joystickDrive, 7);
-            shooter75Button.whileHeld(new ShooterSpeedCommand(0.75));
             shooter70Button = new JoystickButton(joystickDrive, 1);
             shooter70Button.whileHeld(new ShooterSpeedCommand(0.70));
 
+            aimAndShootButton = new JoystickButton(joystickDrive, 7);
+            aimAndShootButton.whileHeld(new AimAndShoot());
             indexingBeltsForwardButton = new JoystickButton(joystickDrive, 2);
             indexingBeltsForwardButton.whileHeld(new IndexingBeltsForward());
             liftingBeltsUpButton = new JoystickButton(joystickDrive, 2);
@@ -93,7 +94,7 @@ public class OI {
             liftingBeltsDownOperatorButton = new JoystickButton(joystickOperator, 3); // X Joystick
             liftingBeltsDownOperatorButton.whileHeld(new liftingBeltsCommand(0.2));
             intakeLiftUpButton = new JoystickButton(joystickOperator, 4); // Y button
-            intakeLiftUpButton.whileHeld(new IntakePositionCommand(0.8));
+            intakeLiftUpButton.whileHeld(new IntakePositionCommand(1));
             intakeLiftDownButton = new JoystickButton(joystickOperator, 1); // A button
             intakeLiftDownButton.whileHeld(new IntakePositionCommand(-0.8));
         }

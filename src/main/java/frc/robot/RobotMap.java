@@ -14,15 +14,15 @@ public class RobotMap {
     /*----------------DRIVE----------------*/
     public static final int driveLeftMaster = 1;
     public static final int driveLeftSlave = 2;
-    public static final int driveRightSlave = 3;
-    public static final int driveRightMaster = 4;
+    public static final int driveRightSlave = 4;
+    public static final int driveRightMaster = 5;
     /*-------------------------------------*/
 
     /*---------------Shooter---------------*/
     public static final int shooterMotor1 = 8;
     public static final int shooterMotor2 = 7;
     public static final int shooterMotor3 = 6;
-    public static final int shooterMotor4 = 5;
+    public static final int shooterMotor4 = 3;
     /*-------------------------------------*/
 
     /*------------IndexingBelts------------*/
