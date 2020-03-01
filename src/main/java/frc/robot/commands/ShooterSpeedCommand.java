@@ -36,7 +36,7 @@ public class ShooterSpeedCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.shooter.setShooterSpeed(0);
+    RobotContainer.shooter.Stop();
   }
 
   // Returns true when the command should end.

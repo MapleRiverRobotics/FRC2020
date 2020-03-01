@@ -65,7 +65,7 @@ public class OI {
             shooter80Button = new JoystickButton(joystickDrive, 8);
             shooter80Button.whileHeld(new ShooterSpeedCommand(0.8));
             shooter70Button = new JoystickButton(joystickDrive, 1);
-            shooter70Button.whileHeld(new ShooterSpeedCommand(0.70));
+            shooter70Button.whileHeld(new ShooterSpeedCommand(4500));
 
             aimAndShootButton = new JoystickButton(joystickDrive, 7);
             aimAndShootButton.whileHeld(new AimAndShoot());

@@ -74,22 +74,6 @@ public class DriveTrain extends SubsystemBase {
     differentialDrive.setDeadband(.02);
     addChild("Differential Drive", differentialDrive);
 
-    // NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-    // NetworkTableInstance.getDefault().getTable("limelight").getEntry("limelightmode").setNumber(3);
-    // NetworkTableEntry tx = table.getEntry("tx");
-    // NetworkTableEntry ty = table.getEntry("ty");
-    // NetworkTableEntry ta = table.getEntry("ta");
-
-    // // read values periodically
-    // double x = tx.getDouble(0.0);
-    // double y = ty.getDouble(0.0);
-    // double area = ta.getDouble(0.0);
-
-    // // post to smart dashboard periodically
-    // SmartDashboard.putNumber("LimelightX", x);
-    // SmartDashboard.putNumber("LimelightY", y);
-    // SmartDashboard.putNumber("LimelightArea", area);
-
   }
 
   // @Override
