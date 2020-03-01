@@ -36,6 +36,7 @@ public class Robot extends TimedRobot {
     // and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    RobotContainer.drivetrain.setDefaultCommand(new DriveTrainTeleop());
   }
 
   /**
@@ -110,9 +111,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    m_teleopCommand = new DriveTrainTeleop();
+    // m_teleopCommand = new DriveTrainTeleop();
 
-    m_teleopCommand.schedule();
+    // m_teleopCommand.schedule();
   }
 
   @Override

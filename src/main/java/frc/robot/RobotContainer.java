@@ -32,13 +32,13 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
-  public static CascadeHook cascadeHook = new CascadeHook();
-  public static Shooter shooter = new Shooter();
-  public static Intake intake = new Intake();
-  public static IndexingBelts indexingBelts = new IndexingBelts();
-  public static LiftingBelts liftingBelts = new LiftingBelts();
-  public static DriveTrain drivetrain = new DriveTrain();
-  public static Lift lift = new Lift();
+  public static final CascadeHook cascadeHook = new CascadeHook();
+  public static final Shooter shooter = new Shooter();
+  public static final Intake intake = new Intake();
+  public static final IndexingBelts indexingBelts = new IndexingBelts();
+  public static final LiftingBelts liftingBelts = new LiftingBelts();
+  public static final DriveTrain drivetrain = new DriveTrain();
+  public static final Lift lift = new Lift();
 
   public static OI oi = new OI();
 
