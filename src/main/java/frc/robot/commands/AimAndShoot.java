@@ -33,7 +33,8 @@ public class AimAndShoot extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+    table.getEntry("ledMode").setNumber(3);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -70,17 +71,19 @@ public class AimAndShoot extends CommandBase {
     RobotContainer.drivetrain.arcadeDrive(0, 0);
 
   }
-  // }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     RobotContainer.drivetrain.arcadeDrive(0, 0);
+    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+    table.getEntry("ledMode").setNumber(1);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (tx > -1 && tx < 1);
+    //return (tx > -1 && tx < 1);
+    return false;
   }
 }

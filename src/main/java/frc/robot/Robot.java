@@ -102,9 +102,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
 
-    m_teleopCommand = new DriveTrainTeleop();
 
-    m_teleopCommand.schedule();
   }
 
   /**
@@ -112,6 +110,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    m_teleopCommand = new DriveTrainTeleop();
+
+    m_teleopCommand.schedule();
   }
 
   @Override

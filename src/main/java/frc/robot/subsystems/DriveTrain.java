@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
+import frc.robot.commands.DriveTrainTeleop;
 
 public class DriveTrain extends SubsystemBase {
   /**
@@ -77,10 +78,10 @@ public class DriveTrain extends SubsystemBase {
   }
 
   // @Override
-  // public void setDefaultCommand() {
-  // // Set the default command for a subsystem here.
-  // setDefaultCommand(new DriveTeleopCommand());
-  // }
+  public void initDefaultCommand() {
+    // Set the default command for a subsystem here.
+    setDefaultCommand(new DriveTrainTeleop());
+  }
 
   @Override
   public void periodic() {
