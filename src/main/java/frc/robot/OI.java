@@ -41,6 +41,7 @@ public class OI {
     public JoystickButton shooter80Button;
     public JoystickButton aimAndShootButton;
     public JoystickButton shooter70Button;
+    public JoystickButton intakeIn;
 
     public Joystick joystickOperator = new Joystick(1);
     public JoystickButton intakeInButton;
@@ -62,8 +63,8 @@ public class OI {
             shooter90Button.whileHeld(new ShooterSpeedCommand(0.9));
             shooter85Button = new JoystickButton(joystickDrive, 9);
             shooter85Button.whileHeld(new ShooterSpeedCommand(0.85));
-            shooter80Button = new JoystickButton(joystickDrive, 8);
-            shooter80Button.whileHeld(new ShooterSpeedCommand(0.8));
+            //shooter80Button = new JoystickButton(joystickDrive, 8);
+            //shooter80Button.whileHeld(new ShooterSpeedCommand(0.8));
             shooter70Button = new JoystickButton(joystickDrive, 1);
             shooter70Button.whileHeld(new ShooterSpeedCommand(3500));
 
@@ -83,6 +84,9 @@ public class OI {
             liftUpButton.whileHeld(new LiftUp());
             liftDownButton = new JoystickButton(joystickDrive, 4);
             liftDownButton.whileHeld(new LiftDown());
+
+            intakeIn = new JoystickButton(joystickDrive, 8);
+            intakeIn.whileHeld(new IntakeIn());
 
         }
 

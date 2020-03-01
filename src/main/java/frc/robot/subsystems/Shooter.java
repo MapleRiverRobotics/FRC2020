@@ -7,7 +7,9 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.FollowerType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -25,17 +27,46 @@ public class Shooter extends SubsystemBase {
   private final WPI_VictorSPX shooterController2;
   private final WPI_VictorSPX shooterController1;
 
+  private static final int kSlotIdx = 0;
+  private static final int kPIDLoopIdx = 0;
+  private static final int kTimeoutMs = 30;
+  private static final double kP = 0.125;
+  private static final double kI = 0.001;
+  private static final double kD = 2;
+  private static final double kF = .07; // 1023.0/7200.0;
+  private static final int kIzone = 300;
+  private static final double kPeakOutput = 1.00;
+
+  public double desiredSpeed;
+  public double rpm;
+
   public Shooter() {
     shooterController4 = new WPI_TalonSRX(RobotMap.shooterMotor4);
-    shooterController4.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     shooterController2 = new WPI_VictorSPX(RobotMap.shooterMotor2);
     shooterController3 = new WPI_VictorSPX(RobotMap.shooterMotor3);
     shooterController1 = new WPI_VictorSPX(RobotMap.shooterMotor1);
 
-    shooterController1.setNeutralMode(NeutralMode.Coast);
-    shooterController2.setNeutralMode(NeutralMode.Coast);
-    shooterController3.setNeutralMode(NeutralMode.Coast);
     shooterController4.setNeutralMode(NeutralMode.Coast);
+    shooterController4.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, kPIDLoopIdx, kTimeoutMs);
+    shooterController4.setSensorPhase(true);
+    shooterController4.configNominalOutputForward(0, kTimeoutMs);
+    shooterController4.configNominalOutputReverse(0, kTimeoutMs);
+    shooterController4.configPeakOutputForward(1, kTimeoutMs);
+    shooterController4.configPeakOutputReverse(-1, kTimeoutMs);
+
+    shooterController4.config_kF(kSlotIdx, kF, kTimeoutMs);
+    shooterController4.config_kP(kSlotIdx, kP, kTimeoutMs);
+    shooterController4.config_kI(kSlotIdx, kI, kTimeoutMs);
+    shooterController4.config_kD(kSlotIdx, kD, kTimeoutMs);
+
+    shooterController4.setInverted(true);
+    shooterController1.follow(shooterController4);
+    shooterController1.setInverted(true);
+    shooterController2.follow(shooterController4);
+    shooterController2.setInverted(false);
+    shooterController3.follow(shooterController4);
+    shooterController3.setInverted(true);
+
   }
 
   @Override
@@ -48,29 +79,38 @@ public class Shooter extends SubsystemBase {
 
   public void setShooterSpeed(double shooterDesiredSpeed) {
 
-    double shooterSpeed = 0;
+    // double shooterSpeed = 0;
+
+    shooterController4.set(ControlMode.Velocity, shooterDesiredSpeed * 4096 / 600);
 
     double velocity = this.shooterController4.getSelectedSensorVelocity();
-    double rpm = velocity / 4096 * 10 * 60;
+    rpm = velocity / 4096 * 10 * 60;
+    desiredSpeed = shooterDesiredSpeed;
     SmartDashboard.putNumber("RPM", rpm);
 
-    if (rpm < shooterDesiredSpeed) {
-      shooterSpeed = 1;
-    }else if(rpm > shooterDesiredSpeed){
-      shooterSpeed = 0;
-    }
+    // if (rpm < shooterDesiredSpeed) {
+    // shooterSpeed = 1;
+    // }else if(rpm > shooterDesiredSpeed){
+    // shooterSpeed = 0;
+    // }
 
-    shooterController1.set(shooterSpeed * -1);
-    shooterController2.set(shooterSpeed);
-    shooterController3.set(shooterSpeed * -1);
-    shooterController4.set(shooterSpeed * -1);
+    // shooterController4.set(shooterSpeed * -1);
   }
 
-  public void Stop(){
-    shooterController1.set(0);
-    shooterController2.set(0);
-    shooterController3.set(0);
-    shooterController4.set(0);
+  public void Stop() {
+    shooterController4.stopMotor();
+  }
+
+  public boolean isWheelUpToSpeed(){
+    if(rpm > desiredSpeed - 50){
+      if(rpm < desiredSpeed + 50){
+        return true;
+      }
+    }else if(rpm > desiredSpeed + 50 || rpm < desiredSpeed - 50){
+      return false;
+    }
+    return false;
   }
 
 }
+

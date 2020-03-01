@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
@@ -17,9 +18,12 @@ public class AimAndShoot extends CommandBase {
   /**
    * Creates a new AimAndShoot.
    */
-  double KpAim = -0.1f;
-  double KpDistance = 0.1f;
-  double min_aim_command = 0.05f;
+     double KpAim = -0.025f;
+  // double KpDistance = 0.1f;
+  // double min_aim_command = 0.05f;
+
+  double minSpeed = 0.3;
+  double minDegreeOffset = 1;
 
   double tx;
   double ty;
@@ -28,6 +32,9 @@ public class AimAndShoot extends CommandBase {
   public AimAndShoot() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.drivetrain);
+    addRequirements(RobotContainer.liftingBelts);
+    addRequirements(RobotContainer.shooter);
+    addRequirements(RobotContainer.indexingBelts);
   }
 
   // Called when the command is initially scheduled.
@@ -49,33 +56,40 @@ public class AimAndShoot extends CommandBase {
     SmartDashboard.putNumber("ty", ty);
     SmartDashboard.putNumber("tv", tv);
 
-    double turnSpeed = -0.1 * tx;
+    double turnSpeed = KpAim * tx;
 
-    if (turnSpeed >= 0 && turnSpeed <= 0.6) {
-      turnSpeed = 0.6;
-    } else if (turnSpeed > -.6 && turnSpeed < 0) {
-      turnSpeed = -.6;
+    if (0 < turnSpeed && turnSpeed < minSpeed) {
+      turnSpeed = minSpeed;
+    } else if (0 > turnSpeed && turnSpeed > -minSpeed) {
+      turnSpeed = -minSpeed;
     }
 
-    // if (tv > 0) {
-    if (tx > 1) {
-      RobotContainer.drivetrain.arcadeDrive(0, turnSpeed);
+    if (tx > minDegreeOffset) {
+      RobotContainer.drivetrain.tankDrive(turnSpeed, 0);
       return;
-    } else if (tx < -1) {
-      RobotContainer.drivetrain.arcadeDrive(0, turnSpeed);
+    } else if (tx < -minDegreeOffset) {
+      RobotContainer.drivetrain.tankDrive(turnSpeed, 0);
       return;
     }
 
-    // double distance_adjust = KpDistance * distance_error;
-
-    RobotContainer.drivetrain.arcadeDrive(0, 0);
-
+    RobotContainer.drivetrain.tankDrive(0, 0);
+    if((tx > -minDegreeOffset && tx < minDegreeOffset)  && tx != 0){
+      RobotContainer.shooter.setShooterSpeed(3500);
+      if(RobotContainer.shooter.isWheelUpToSpeed() == true){
+        Timer.delay(1);
+        RobotContainer.indexingBelts.Forward();
+        RobotContainer.liftingBelts.Enable(-0.8);
+      }
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.drivetrain.arcadeDrive(0, 0);
+    RobotContainer.drivetrain.tankDrive(0, 0);
+    RobotContainer.liftingBelts.Stop();
+    RobotContainer.shooter.Stop();
+    RobotContainer.indexingBelts.Stop();
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
     table.getEntry("ledMode").setNumber(1);
   }
@@ -83,7 +97,7 @@ public class AimAndShoot extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    //return (tx > -1 && tx < 1);
+    //return (tx > -minDegreeOffset && tx < minDegreeOffset)  && tx != 0;
     return false;
   }
 }
