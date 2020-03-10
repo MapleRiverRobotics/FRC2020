@@ -75,12 +75,12 @@ public class AimAndShoot extends CommandBase {
 
     RobotContainer.drivetrain.tankDrive(0, 0);
     if((tx > -minDegreeOffset && tx < minDegreeOffset)  && tx != 0){
-      GetShooterRpm();
-      //RobotContainer.shooter.setShooterSpeed(GetShooterRpm());
+      //GetShooterRpm();
+      RobotContainer.shooter.setShooterSpeed(GetShooterRpm());
       if(RobotContainer.shooter.isWheelUpToSpeed() == true) {
         Timer.delay(1);
-        //RobotContainer.indexingBelts.Forward();
-        //RobotContainer.liftingBelts.Enable(-0.8);
+        RobotContainer.indexingBelts.Forward();
+        RobotContainer.liftingBelts.Enable(-0.8);
       }
     }
   }
@@ -94,7 +94,7 @@ public class AimAndShoot extends CommandBase {
 
     SmartDashboard.putNumber("distance", distance);
 
-    return distance;
+    return 3500;
 
   }
 
