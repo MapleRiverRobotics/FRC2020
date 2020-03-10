@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
@@ -53,12 +54,14 @@ public class DriveTrain extends SubsystemBase {
     addChild("LeftMaster", leftMaster);
 
     rightMaster = new WPI_VictorSPX(RobotMap.driveRightMaster);
+    rightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     rightMaster.setInverted(true);
     /* Config the sensor used for Primary PID and sensor direction */
-   rightMaster.setSensorPhase(true);
+    rightMaster.setSensorPhase(true);
     addChild("RightMaster", rightMaster);
 
     leftSlave = new WPI_TalonSRX(RobotMap.driveLeftSlave);
+    leftSlave.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     leftSlave.follow(leftMaster);
     leftSlave.setInverted(true);
     addChild("LeftSlave", leftSlave);
@@ -124,5 +127,13 @@ public class DriveTrain extends SubsystemBase {
 
   public void resetPosition() {
     rightMaster.setSelectedSensorPosition(0);
+  }
+
+  public void getWheelSpeed() {
+    double rightWheelVelocity = this.rightSlave.getSelectedSensorVelocity() / 4096 * 10 * 60;
+    double leftWheelVelocity = this.leftMaster.getSelectedSensorVelocity() / 4096 * 10 * 60;
+
+    SmartDashboard.putNumber("Right Wheel Speed", rightWheelVelocity);
+    SmartDashboard.putNumber("Left Wheel Speed", leftWheelVelocity);
   }
 }

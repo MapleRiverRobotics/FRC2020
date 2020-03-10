@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
+import  java.lang.Math;
 
 public class AimAndShoot extends CommandBase {
   /**
@@ -74,13 +75,27 @@ public class AimAndShoot extends CommandBase {
 
     RobotContainer.drivetrain.tankDrive(0, 0);
     if((tx > -minDegreeOffset && tx < minDegreeOffset)  && tx != 0){
-      RobotContainer.shooter.setShooterSpeed(3500);
-      if(RobotContainer.shooter.isWheelUpToSpeed() == true){
+      GetShooterRpm();
+      //RobotContainer.shooter.setShooterSpeed(GetShooterRpm());
+      if(RobotContainer.shooter.isWheelUpToSpeed() == true) {
         Timer.delay(1);
-        RobotContainer.indexingBelts.Forward();
-        RobotContainer.liftingBelts.Enable(-0.8);
+        //RobotContainer.indexingBelts.Forward();
+        //RobotContainer.liftingBelts.Enable(-0.8);
       }
     }
+  }
+
+  private double GetShooterRpm() {
+    //d = (h2-h1) / tan(a1+a2)
+    double a1 = 7.5; // angle of camera
+    double h1 = 24.0; // height of camera
+    double h2 = 92.0; // height of target
+    double distance =  (h2 - h1) / Math.tan(Math.toRadians(a1 + ty));
+
+    SmartDashboard.putNumber("distance", distance);
+
+    return distance;
+
   }
 
   // Called once the command ends or is interrupted.

@@ -9,7 +9,6 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.FollowerType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -34,8 +33,6 @@ public class Shooter extends SubsystemBase {
   private static final double kI = 0.001;
   private static final double kD = 2;
   private static final double kF = .07; // 1023.0/7200.0;
-  private static final int kIzone = 300;
-  private static final double kPeakOutput = 1.00;
 
   public double desiredSpeed;
   public double rpm;
@@ -87,14 +84,6 @@ public class Shooter extends SubsystemBase {
     rpm = velocity / 4096 * 10 * 60;
     desiredSpeed = shooterDesiredSpeed;
     SmartDashboard.putNumber("RPM", rpm);
-
-    // if (rpm < shooterDesiredSpeed) {
-    // shooterSpeed = 1;
-    // }else if(rpm > shooterDesiredSpeed){
-    // shooterSpeed = 0;
-    // }
-
-    // shooterController4.set(shooterSpeed * -1);
   }
 
   public void Stop() {

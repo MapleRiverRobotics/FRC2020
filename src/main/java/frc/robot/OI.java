@@ -56,13 +56,13 @@ public class OI {
             // shooterForwardButton = new JoystickButton(joystickDrive, 1);
             // shooterForwardButton.whileHeld(new ShooterForward());
             shooter100Button = new JoystickButton(joystickDrive, 12);
-            shooter100Button.whileHeld(new ShooterSpeedCommand(1));
+            shooter100Button.whileHeld(new ShooterSpeedCommand(4500));
             shooter95Button = new JoystickButton(joystickDrive, 11);
-            shooter95Button.whileHeld(new ShooterSpeedCommand(0.95));
+            shooter95Button.whileHeld(new ShooterSpeedCommand(4250));
             shooter90Button = new JoystickButton(joystickDrive, 10);
-            shooter90Button.whileHeld(new ShooterSpeedCommand(0.9));
+            shooter90Button.whileHeld(new ShooterSpeedCommand(4000));
             shooter85Button = new JoystickButton(joystickDrive, 9);
-            shooter85Button.whileHeld(new ShooterSpeedCommand(0.85));
+            shooter85Button.whileHeld(new ShooterSpeedCommand(3750));
             //shooter80Button = new JoystickButton(joystickDrive, 8);
             //shooter80Button.whileHeld(new ShooterSpeedCommand(0.8));
             shooter70Button = new JoystickButton(joystickDrive, 1);
@@ -70,10 +70,10 @@ public class OI {
 
             aimAndShootButton = new JoystickButton(joystickDrive, 7);
             aimAndShootButton.whileHeld(new AimAndShoot());
-            indexingBeltsForwardButton = new JoystickButton(joystickDrive, 2);
-            indexingBeltsForwardButton.whileHeld(new IndexingBeltsForward());
-            liftingBeltsUpButton = new JoystickButton(joystickDrive, 2);
-            liftingBeltsUpButton.whileHeld(new liftingBeltsCommand(-0.8));
+            //indexingBeltsForwardButton = new JoystickButton(joystickDrive, 2);
+            //indexingBeltsForwardButton.whileHeld(new IndexingBeltsForward());
+            //liftingBeltsUpButton = new JoystickButton(joystickDrive, 2);
+            //liftingBeltsUpButton.whileHeld(new liftingBeltsCommand(-0.8));
             //liftingBeltsDownButton = new JoystickButton(joystickDrive, 3);
             //liftingBeltsDownButton.whileHeld(new liftingBeltsCommand(0.2));
             cascadeHookUpButton = new JoystickButton(joystickDrive, 5);
