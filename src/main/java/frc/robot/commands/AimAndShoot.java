@@ -13,13 +13,13 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import  java.lang.Math;
+import java.lang.Math;
 
 public class AimAndShoot extends CommandBase {
   /**
    * Creates a new AimAndShoot.
    */
-     double KpAim = -0.025f;
+  double KpAim = -0.025f;
   // double KpDistance = 0.1f;
   // double min_aim_command = 0.05f;
 
@@ -74,10 +74,10 @@ public class AimAndShoot extends CommandBase {
     }
 
     RobotContainer.drivetrain.tankDrive(0, 0);
-    if((tx > -minDegreeOffset && tx < minDegreeOffset)  && tx != 0){
-      //GetShooterRpm();
+    if ((tx > -minDegreeOffset && tx < minDegreeOffset) && tx != 0) {
+      // GetShooterRpm();
       RobotContainer.shooter.setShooterSpeed(GetShooterRpm());
-      if(RobotContainer.shooter.isWheelUpToSpeed() == true) {
+      if (RobotContainer.shooter.isWheelUpToSpeed() == true) {
         Timer.delay(1);
         RobotContainer.indexingBelts.Forward();
         RobotContainer.liftingBelts.Enable(-0.8);
@@ -86,16 +86,16 @@ public class AimAndShoot extends CommandBase {
   }
 
   private double GetShooterRpm() {
-    //d = (h2-h1) / tan(a1+a2)
+    // d = (h2-h1) / tan(a1+a2)
     double a1 = 7.5; // angle of camera
     double h1 = 24.0; // height of camera
     double h2 = 92.0; // height of target
-    double distance =  (h2 - h1) / Math.tan(Math.toRadians(a1 + ty));
+    double distance = (h2 - h1) / Math.tan(Math.toRadians(a1 + ty));
 
     SmartDashboard.putNumber("distance", distance);
 
-    return 3500;
-
+    return ((distance - 130) * 1.5) + 3500;
+//2.1739130434782608695652173913043
   }
 
   // Called once the command ends or is interrupted.
@@ -112,7 +112,7 @@ public class AimAndShoot extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    //return (tx > -minDegreeOffset && tx < minDegreeOffset)  && tx != 0;
+    // return (tx > -minDegreeOffset && tx < minDegreeOffset) && tx != 0;
     return false;
   }
 }
