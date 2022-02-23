@@ -55,7 +55,7 @@ public class DriveTrain extends SubsystemBase {
 
     rightMaster = new WPI_VictorSPX(RobotMap.driveRightMaster);
     rightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-    rightMaster.setInverted(true);
+    rightMaster.setInverted(false);
     /* Config the sensor used for Primary PID and sensor direction */
     rightMaster.setSensorPhase(true);
     addChild("RightMaster", rightMaster);
@@ -67,7 +67,7 @@ public class DriveTrain extends SubsystemBase {
     addChild("LeftSlave", leftSlave);
 
     rightSlave = new WPI_TalonSRX(RobotMap.driveRightSlave);
-    rightSlave.setInverted(true);
+    rightSlave.setInverted(false);
     rightSlave.follow(rightMaster);
     addChild("RightSlave", rightSlave);
 
